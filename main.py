@@ -33,6 +33,8 @@ bot = Client(
     bot_token=BOT_TOKEN)
 
 
+
+
 @bot.on_message(filters.command(["start"]))
 async def start(bot: Client, m: Message):
     await m.reply_text(f"<b>Hello {m.from_user.mention} 👋\n\n I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File On Telegram So Basically If You Want To Use Me First Send Me /upload Command And Then Follow Few Steps..\n\nUse /stop to stop any ongoing task.</b>")
@@ -165,6 +167,36 @@ async def upload(bot: Client, m: Message):
 
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]}'
+
+		
+
+	    if "encrypted" in url:
+             decrypted_video = await download_and_decrypt_video(url, name, key = url.split('*')[-1] )
+            if decrypted_video:
+            await send_vid(bot, m, "Video Decrypted", decrypted_video, "no", name, prog)
+            else:
+            await m.reply_text(f"Decryption failed for {name}")
+            else:
+    # Standard video download logic
+            await download_video(url, cmd, name)
+
+          # Integration into download process
+            async def download_and_decrypt_video(url, name, decryption_key):
+    # Step 1: Download the encrypted file
+    encrypted_file_path = await download(url, name)
+	
+    # Step 2: Decrypt the file using the provided key
+    decryption_success = decrypt_file(encrypted_file_path, decryption_key = key)
+
+            if decryption_success:
+                 print(f"Decryption successful for {name}")
+                 return encrypted_file_path
+            else:
+                 print(f"Decryption failed for {name}")
+                 return None
+	
+
+
 
             if "youtu" in url:
                 ytf = f"b[height<={raw_text2}][ext=mp4]/bv[height<={raw_text2}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]"
