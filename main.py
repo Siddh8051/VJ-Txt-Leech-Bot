@@ -168,8 +168,6 @@ async def upload(bot: Client, m: Message):
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]}'
 
-		
-
 	    if "encrypted" in url:
              decrypted_video = await download_and_decrypt_video(url, name, key = url.split('*')[-1] )
             if decrypted_video:
