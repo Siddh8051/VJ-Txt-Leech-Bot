@@ -179,12 +179,12 @@ async def upload(bot: Client, m: Message):
           #  await download_video(url, cmd, name)
 
           # Integration into download process
-            async def download_and_decrypt_video(url, name, decryption_key):
+          #  async def download_and_decrypt_video(url, name, decryption_key):
     # Step 1: Download the encrypted file
-            encrypted_file_path = await download(url, name)
+          #  encrypted_file_path = await download(url, name)
 	
     # Step 2: Decrypt the file using the provided key
-            decryption_success = decrypt_file(encrypted_file_path, decryption_key = key)
+          #  decryption_success = decrypt_file(encrypted_file_path, decryption_key = key)
 
           #  if decryption_success:
                #  print(f"Decryption successful for {name}")
