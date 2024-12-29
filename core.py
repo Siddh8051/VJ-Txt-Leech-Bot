@@ -39,20 +39,13 @@ def decrypt_file(file_path, key):
         return True
 
 # Function to XOR-encrypt a string and encode it to Base64
-def xor_encrypt_to_base64(input_str, key="123456"):
+def xor_encrypt_to_base64(input_str, key):
     key_len = len(key)
     encrypted_bytes = [
         ord(char) ^ ord(key[i % key_len]) for i, char in enumerate(input_str)
     ]
     base64_encrypted = base64.b64encode(bytes(encrypted_bytes))
     return base64_encrypted.decode('utf-8')
-
-# Example usage of decryption
-if __name__ == "__main__":
-    input_str = "https://appx-transcoded-videos.livelearn.in/videos/gyanbindu-data/56271-1716481158/encrypted-49b9cb/360p/encrypted.mkv*123456"
-    key = "8190096"
-    success = decrypt_file("result", key)
-    print("Decryption successful:", success)
 
 
 
